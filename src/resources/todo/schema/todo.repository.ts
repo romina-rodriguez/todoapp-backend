@@ -24,16 +24,12 @@ export class TodoRepository {
     try {
       return await this.todoModel.create(request);
     } catch (error) {
-      throw new InternalServerErrorException('Error saving task in MongoDB');
+      throw new InternalServerErrorException('Error saving task in MongoDB.');
     }
   }
 
-  async pendingTasks() {
-    return await this.todoModel.find({ done: false }).sort({ date: 'asc' });
-  }
-
-  async finishedTasks() {
-    return await this.todoModel.find({ done: true }).sort({ date: 'desc' });
+  async findTasks(status: boolean) {
+    return await this.todoModel.find({ done: status });
   }
 
   async findOne(id: mongoose.Schema.Types.ObjectId) {
