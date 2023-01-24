@@ -1,12 +1,16 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config';
 
-import { TodoModule } from './resources/todo/todo.module';
+import { ResourcesModule } from './resources/resources.module';
 
 @Module({
   imports: [
-    TodoModule,
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/todoapp'),
+    ResourcesModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    MongooseModule.forRoot(`${process.env.MONGODB_URI}`),
   ],
   controllers: [],
   providers: [],
