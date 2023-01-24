@@ -44,7 +44,7 @@ export class TodoRepository {
   async update(id: mongoose.Schema.Types.ObjectId) {
     try {
       return await this.todoModel.updateOne({ _id: id }, [
-        { $set: { done: { $eq: [false, '$done'] }, date: Date.now() } },
+        { $set: { done: { $eq: [false, '$done'] } } },
       ]);
     } catch (error) {
       throw new NotFoundException(`A task with id: ${id} does not exist.`);

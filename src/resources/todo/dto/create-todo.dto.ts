@@ -8,8 +8,4 @@ export class CreateTodoDto {
   @IsNotEmpty()
   @IsBoolean()
   done: boolean;
-
-  @IsNotEmpty()
-  @IsDate()
-  date: Date;
 }

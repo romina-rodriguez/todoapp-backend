@@ -4,6 +4,7 @@ export interface ITodo {
   _id: mongoose.Schema.Types.ObjectId;
   task: string;
   done: boolean;
-  date: Date;
+  createdAt: Date;
+  updatedAt: Date;
   __v: number;
 }
