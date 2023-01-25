@@ -9,10 +9,12 @@ import {
   Logger,
 } from '@nestjs/common';
 import mongoose from 'mongoose';
+import { ApiTags } from '@nestjs/swagger';
 
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 
+@ApiTags('To-Do App')
 @Controller()
 export class TodoController {
   private logger = new Logger(TodoController.name);
