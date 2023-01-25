@@ -8,7 +8,14 @@ export class Todo {
 
   @Prop({ required: true, default: false, type: Boolean })
   done: boolean;
+
+  @Prop({ required: true, default: false, type: Boolean })
+  isDeleted: boolean;
 }
 
 export type TodoDocument = Todo & Document;
 export const TodoSchema = SchemaFactory.createForClass(Todo);
+
+TodoSchema.pre('find', function () {
+  this.where({ isDeleted: false });
+});

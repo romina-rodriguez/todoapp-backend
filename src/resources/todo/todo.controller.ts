@@ -21,33 +21,42 @@ export class TodoController {
 
   constructor(private readonly todoService: TodoService) {}
 
-  @Post()
+  @Post('create-task')
   create(@Body() createTodoDto: CreateTodoDto) {
     return this.todoService.create(createTodoDto);
   }
 
-  @Get('pending')
+  @Get('search/pending')
   pendingTasks() {
     return this.todoService.pendingTasks();
   }
 
-  @Get('done')
+  @Get('search/done')
   finishedTasks() {
     return this.todoService.finishedTasks();
   }
 
-  @Get(':id')
+  @Get('find/:id')
   findOne(@Param('id') id: mongoose.Schema.Types.ObjectId) {
     return this.todoService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch('update/done/:id')
   update(@Param('id') id: mongoose.Schema.Types.ObjectId) {
     return this.todoService.update(id);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: mongoose.Schema.Types.ObjectId) {
-    return this.todoService.remove(id);
+  @Patch('update/soft-delete/retrieve/:id')
+  retrieve(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+    return this.todoService.retrieve(id);
+  }
+
+  @Delete('delete/:softDelete?/:id')
+  remove(
+    @Param('id') id: mongoose.Schema.Types.ObjectId,
+    @Param('softDelete') softDelete?: boolean,
+  ) {
+    const soft_delete = softDelete ? true : false;
+    return this.todoService.remove(id, soft_delete);
   }
 }

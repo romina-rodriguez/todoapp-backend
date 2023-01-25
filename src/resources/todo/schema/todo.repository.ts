@@ -51,9 +51,25 @@ export class TodoRepository {
     }
   }
 
-  async remove(id: mongoose.Schema.Types.ObjectId) {
+  async retrieve(id: mongoose.Schema.Types.ObjectId) {
     try {
-      return this.todoModel.deleteOne({ _id: id });
+      return await this.todoModel.updateOne({ _id: id }, [
+        { $set: { isDeleted: false } },
+      ]);
+    } catch (error) {
+      throw new NotFoundException(`A task with id: ${id} does not exist.`);
+    }
+  }
+
+  async remove(id: mongoose.Schema.Types.ObjectId, sofDelete: boolean) {
+    try {
+      if (sofDelete) {
+        return this.todoModel.updateOne({ _id: id }, [
+          { $set: { isDeleted: true } },
+        ]);
+      } else {
+        return this.todoModel.deleteOne({ _id: id });
+      }
     } catch (error) {
       throw new NotFoundException(`A task with id: ${id} does not exist.`);
     }

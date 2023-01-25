@@ -6,5 +6,6 @@ export interface ITodo {
   done: boolean;
   createdAt: Date;
   updatedAt: Date;
+  isDeleted: boolean;
   __v: number;
 }

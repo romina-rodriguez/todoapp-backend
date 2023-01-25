@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -8,10 +8,14 @@ import { AppModule } from './app.module';
 @Injectable()
 class Main {
   private origin;
+  private port;
+  private logger;
 
   constructor(private configService: ConfigService) {
     this.origin =
-      this.configService.get<string>('ORIGIN') || 'http://localhost:300';
+      this.configService.get<string>('ORIGIN') || 'http://localhost:3001';
+    this.port = this.configService.get<number>('PORT') || 3015;
+    this.logger = new Logger(Main.name);
   }
 
   async bootstrap() {
@@ -31,7 +35,10 @@ class Main {
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('docs', app, document);
 
-    await app.listen(3015);
+    await app.listen(this.port);
+    this.logger.verbose(
+      `🚀 Application is running on: http://localhost:${this.port}`,
+    );
   }
 }
 
