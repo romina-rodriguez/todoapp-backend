@@ -12,8 +12,9 @@ class Main {
   private logger;
 
   constructor(private configService: ConfigService) {
-    this.origin =
-      this.configService.get<string>('ORIGIN') || 'http://localhost:3001';
+    this.origin = (
+      this.configService.get<string>('ORIGIN') || 'http://localhost:3001'
+    ).split(',');
     this.port = this.configService.get<number>('PORT') || 3015;
     this.logger = new Logger(Main.name);
   }
@@ -23,7 +24,13 @@ class Main {
       logger: ['debug', 'error', 'log', 'verbose', 'warn'],
     });
     app.enableCors({
-      origin: [this.origin],
+      origin: (origin: any, callback: any) => {
+        if (this.origin.indexOf(origin) !== -1 || !origin) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
       methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     });
 
