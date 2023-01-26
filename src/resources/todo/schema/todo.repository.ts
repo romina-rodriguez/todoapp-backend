@@ -24,11 +24,12 @@ export class TodoRepository {
     try {
       return await this.todoModel.create(request);
     } catch (error) {
-      throw new InternalServerErrorException('Error saving task in MongoDB.');
+      throw new InternalServerErrorException('Error saving task in MongoDB');
     }
   }
 
   async findTasks(status: boolean) {
+    //TODO: Add pagination
     return await this.todoModel.find({ done: status });
   }
 
@@ -37,41 +38,37 @@ export class TodoRepository {
       const request: ITodo | null = await this.todoModel.findById(id);
       return request;
     } catch (error) {
-      throw new NotFoundException(`A task with id: ${id} does not exist.`);
+      throw new NotFoundException(`A task with id: ${id} does not exist`);
     }
   }
 
   async update(id: mongoose.Schema.Types.ObjectId) {
     try {
-      return await this.todoModel.updateOne({ _id: id }, [
-        { $set: { done: { $eq: [false, '$done'] } } },
-      ]);
+      return await this.todoModel.findByIdAndUpdate(id, {
+        done: { $eq: [false, '$done'] },
+      });
     } catch (error) {
-      throw new NotFoundException(`A task with id: ${id} does not exist.`);
+      throw new NotFoundException(`A task with id: ${id} does not exist`);
     }
   }
 
   async retrieve(id: mongoose.Schema.Types.ObjectId) {
     try {
-      return await this.todoModel.updateOne({ _id: id }, [
-        { $set: { isDeleted: false } },
-      ]);
+      return await this.todoModel.findByIdAndUpdate(id, { isDeleted: false });
     } catch (error) {
-      throw new NotFoundException(`A task with id: ${id} does not exist.`);
+      throw new NotFoundException(`A task with id: ${id} does not exist`);
     }
   }
 
   async remove(id: mongoose.Schema.Types.ObjectId, sofDelete: boolean) {
     try {
       if (sofDelete) {
-        return this.todoModel.updateOne({ _id: id }, [
-          { $set: { isDeleted: true } },
-        ]);
+        return this.todoModel.findByIdAndUpdate(id, { isDeleted: true });
       } else {
-        return this.todoModel.deleteOne({ _id: id });
+        return this.todoModel.findByIdAndDelete(id);
       }
     } catch (error) {
-      throw new NotFoundException(`A task with id: ${id} does not exist.`);
+      throw new NotFoundException(`A task with id: ${id} does not exist`);
     }
   }
 }

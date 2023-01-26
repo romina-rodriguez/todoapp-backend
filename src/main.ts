@@ -1,9 +1,13 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
-import { AppModule } from './app.module';
+import { AppModule } from './app/app.module';
 
 @Injectable()
 class Main {
@@ -28,7 +32,7 @@ class Main {
         if (this.origin.indexOf(origin) !== -1 || !origin) {
           callback(null, true);
         } else {
-          callback(new Error('Not allowed by CORS'));
+          callback(new InternalServerErrorException('Not allowed by CORS'));
         }
       },
       methods: ['GET', 'POST', 'PATCH', 'DELETE'],
