@@ -28,7 +28,7 @@ class Main {
       logger: ['debug', 'error', 'log', 'verbose', 'warn'],
     });
     app.enableCors({
-      origin: (origin: any, callback: any) => {
+      origin: (origin: string, callback: any) => {
         if (this.origin.indexOf(origin) !== -1 || !origin) {
           callback(null, true);
         } else {
