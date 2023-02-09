@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  ValidationPipe,
-} from '@nestjs/common';
+import { InternalServerErrorException, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -10,7 +6,6 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app/app.module';
 import { CustomLogger } from './logger/custom-logger.service';
 
-@Injectable()
 class Main {
   private origin: string[];
   private port: number;
