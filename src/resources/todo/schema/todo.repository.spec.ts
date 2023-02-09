@@ -1,28 +1,26 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { CustomLogger } from '../../logger/custom-logger.service';
-import { TodoRepository } from './schema/todo.repository';
-import { Todo } from './schema/todo.schema';
-import { TodoService } from './todo.service';
+import { CustomLogger } from '../../../logger/custom-logger.service';
+import { TodoRepository } from './todo.repository';
+import { Todo } from './todo.schema';
 
-describe('TodoService', () => {
-  let service: TodoService;
+describe('TodoRepository', () => {
+  let repository: TodoRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        TodoService,
         TodoRepository,
         CustomLogger,
         { provide: getModelToken(Todo.name), useValue: jest.fn() },
       ],
     }).compile();
 
-    service = module.get<TodoService>(TodoService);
+    repository = module.get<TodoRepository>(TodoRepository);
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(repository).toBeDefined();
   });
 });
