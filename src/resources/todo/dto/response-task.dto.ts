@@ -11,7 +11,7 @@ import mongoose from 'mongoose';
 export class ResponseTaskDto {
   @ApiProperty({
     description: 'Unique mongo id identifier of the new task',
-    type: mongoose.Types.ObjectId,
+    type: String,
     required: true,
   })
   @IsNotEmpty()
