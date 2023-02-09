@@ -16,7 +16,7 @@ import { CustomLogger } from '../../logger/custom-logger.service';
 import { ResponseTaskDto } from './dto/response-task.dto';
 import { updateTodoDto } from './dto/update-todo.dto';
 
-@ApiTags('To-Do App')
+@ApiTags('To-Do')
 @Controller()
 export class TodoController {
   constructor(
