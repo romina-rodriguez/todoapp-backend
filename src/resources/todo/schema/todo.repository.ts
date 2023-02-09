@@ -37,7 +37,7 @@ export class TodoRepository {
   async findOne(id: mongoose.Types.ObjectId) {
     const methodName = this.findOne.name;
     this.customLogger.log(`[${methodName}] Init, querying data...`);
-    const request: ITodo | null = await this.todoModel.findOne({ _id: id });
+    const request: ITodo | null = await this.todoModel.findById(id);
     this.customLogger.log(`[${methodName}] success`);
     return request;
   }
@@ -68,8 +68,8 @@ export class TodoRepository {
     const methodName = this.remove.name;
     this.customLogger.log(`[${methodName}] Init, removing data...`);
     if (sofDelete) {
-      const request: ITodo | null = await this.todoModel.findOneAndUpdate(
-        { _id: id },
+      const request: ITodo | null = await this.todoModel.findByIdAndUpdate(
+        id,
         { isDeleted: true },
         { new: true },
       );

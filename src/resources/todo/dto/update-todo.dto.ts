@@ -1,7 +1,8 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { IsString, IsBoolean } from 'class-validator';
+import { CreateTodoDto } from './create-todo.dto';
 
-export class UpdateTodoDto {
+export class UpdateTodoDto extends PartialType(CreateTodoDto) {
   @ApiProperty({
     description: 'Task description to be updated',
     type: String,
