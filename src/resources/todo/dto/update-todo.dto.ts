@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsBoolean } from 'class-validator';
 
-export class updateTodoDto {
+export class UpdateTodoDto {
   @ApiProperty({
     description: 'Task description to be updated',
     type: String,

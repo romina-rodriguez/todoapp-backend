@@ -14,7 +14,7 @@ import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { CustomLogger } from '../../logger/custom-logger.service';
 import { ResponseTaskDto } from './dto/response-task.dto';
-import { updateTodoDto } from './dto/update-todo.dto';
+import { UpdateTodoDto } from './dto/update-todo.dto';
 
 @ApiTags('To-Do')
 @Controller()
@@ -97,7 +97,7 @@ export class TodoController {
   })
   update(
     @Param('id') id: mongoose.Types.ObjectId,
-    @Body() updateTodoDto: updateTodoDto,
+    @Body() updateTodoDto: UpdateTodoDto,
   ) {
     const methodName = this.update.name;
     this.customLogger.log(`[${methodName}] init`);
