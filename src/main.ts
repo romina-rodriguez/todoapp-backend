@@ -4,6 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 import { AppModule } from './app/app.module';
+import { MongooseExceptionFilter } from './filters/mongoose-exception.filter';
 import { CustomLogger } from './logger/custom-logger.service';
 
 class Main {
@@ -30,6 +31,7 @@ class Main {
       logger: this.env === 'prod' ? ['log', 'warn', 'error'] : ['debug'],
     });
     app.setGlobalPrefix(this.globalPrefix);
+    app.useGlobalFilters(new MongooseExceptionFilter(new CustomLogger()));
     app.useGlobalPipes(
       new ValidationPipe({
         whitelist: true,

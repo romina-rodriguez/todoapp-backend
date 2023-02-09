@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  UseFilters,
 } from '@nestjs/common';
 import mongoose from 'mongoose';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -16,10 +15,8 @@ import { CreateTodoDto } from './dto/create-todo.dto';
 import { CustomLogger } from '../../logger/custom-logger.service';
 import { ResponseTaskDto } from './dto/response-task.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
-import { MongooseExceptionFilter } from '../../filters/mongoose-exception.filter';
 
 @ApiTags('To-Do')
-@UseFilters(MongooseExceptionFilter)
 @Controller()
 export class TodoController {
   constructor(

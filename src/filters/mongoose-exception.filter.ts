@@ -3,6 +3,7 @@ import {
   Catch,
   ExceptionFilter,
   HttpStatus,
+  Injectable,
 } from '@nestjs/common';
 import { Error } from 'mongoose';
 import { Request, Response } from 'express';
@@ -22,6 +23,7 @@ import { CustomLogger } from '../logger/custom-logger.service';
   Error.ValidatorError,
   Error.VersionError,
 )
+@Injectable()
 export class MongooseExceptionFilter implements ExceptionFilter {
   constructor(private customLogger: CustomLogger) {
     this.customLogger.setContext(MongooseExceptionFilter.name);
