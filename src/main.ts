@@ -52,7 +52,7 @@ class Main {
     });
 
     const config = new DocumentBuilder()
-      .setTitle('To-Do App - API')
+      .setTitle('To-Do App API')
       .setDescription('To-Do App API description')
       .setVersion('1.0')
       .addBearerAuth()
