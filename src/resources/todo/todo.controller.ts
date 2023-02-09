@@ -46,7 +46,7 @@ export class TodoController {
   })
   @ApiResponse({
     status: 201,
-    description: 'Shows user an array containing all pending tasks',
+    description: 'Shows user an array containing all pending tasks objects',
     type: [ResponseTaskDto],
   })
   pendingTasks() {
@@ -61,7 +61,7 @@ export class TodoController {
   })
   @ApiResponse({
     status: 201,
-    description: 'Shows user an array containing all finished tasks',
+    description: 'Shows user an array containing all finished tasks objects',
     type: [ResponseTaskDto],
   })
   finishedTasks() {
@@ -91,7 +91,7 @@ export class TodoController {
   })
   @ApiResponse({
     status: 201,
-    description: 'Shows user the updated task',
+    description: 'Shows user the updated task object',
     type: ResponseTaskDto,
   })
   update(@Param('id') id: mongoose.Types.ObjectId) {
@@ -107,7 +107,7 @@ export class TodoController {
   })
   @ApiResponse({
     status: 201,
-    description: 'Shows user the updated task',
+    description: 'Shows user the updated task object',
     type: ResponseTaskDto,
   })
   retrieve(@Param('id') id: mongoose.Types.ObjectId) {
@@ -123,7 +123,7 @@ export class TodoController {
   })
   @ApiResponse({
     status: 201,
-    description: 'Shows user deleted/updated task',
+    description: 'Shows user deleted/updated task object',
     type: ResponseTaskDto,
   })
   remove(
