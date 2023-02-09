@@ -20,7 +20,7 @@ export class TodoRepository {
 
   async save(createTodoDto: CreateTodoDto) {
     const methodName = this.save.name;
-    this.customLogger.log(`[${methodName}] init, saving data...`);
+    this.customLogger.log(`[${methodName}] Init, saving data...`);
     const request: ITodo = await this.todoModel.create(createTodoDto);
     this.customLogger.log(`[${methodName}] success`);
     return request;
@@ -28,7 +28,7 @@ export class TodoRepository {
 
   async findTasks(status: boolean) {
     const methodName = this.findTasks.name;
-    this.customLogger.log(`[${methodName}] init, querying data...`);
+    this.customLogger.log(`[${methodName}] Init, querying data...`);
     const request: ITodo[] = await this.todoModel.find({ done: status });
     this.customLogger.log(`[${methodName}] success`);
     return request;
@@ -36,7 +36,7 @@ export class TodoRepository {
 
   async findOne(id: mongoose.Types.ObjectId) {
     const methodName = this.findOne.name;
-    this.customLogger.log(`[${methodName}] init, querying data...`);
+    this.customLogger.log(`[${methodName}] Init, querying data...`);
     const request: ITodo | null = await this.todoModel.findOne({ _id: id });
     this.customLogger.log(`[${methodName}] success`);
     return request;
@@ -44,7 +44,7 @@ export class TodoRepository {
 
   async update(id: mongoose.Types.ObjectId, updateTodoDto: UpdateTodoDto) {
     const methodName = this.update.name;
-    this.customLogger.log(`[${methodName}] init, updating data...`);
+    this.customLogger.log(`[${methodName}] Init, updating data...`);
     const request: ITodo | null = await this.todoModel.findByIdAndUpdate(
       id,
       updateTodoDto,
@@ -56,7 +56,7 @@ export class TodoRepository {
 
   async retrieve(id: mongoose.Types.ObjectId) {
     const methodName = this.retrieve.name;
-    this.customLogger.log(`[${methodName}] init, updating data...`);
+    this.customLogger.log(`[${methodName}] Init, updating data...`);
     const request: ITodo | null = await this.todoModel.findByIdAndUpdate(id, {
       isDeleted: false,
     });
@@ -66,7 +66,7 @@ export class TodoRepository {
 
   async remove(id: mongoose.Types.ObjectId, sofDelete: boolean) {
     const methodName = this.remove.name;
-    this.customLogger.log(`[${methodName}] init, removing data...`);
+    this.customLogger.log(`[${methodName}] Init, removing data...`);
     if (sofDelete) {
       const request: ITodo | null = await this.todoModel.findOneAndUpdate(
         { _id: id },

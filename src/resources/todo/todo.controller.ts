@@ -37,7 +37,7 @@ export class TodoController {
   })
   create(@Body() createTodoDto: CreateTodoDto) {
     const methodName = this.create.name;
-    this.customLogger.log(`[${methodName}] init`);
+    this.customLogger.log(`[${methodName}] Init`);
     return this.todoService.create(createTodoDto);
   }
 
@@ -52,7 +52,7 @@ export class TodoController {
   })
   pendingTasks() {
     const methodName = this.pendingTasks.name;
-    this.customLogger.log(`[${methodName}] init`);
+    this.customLogger.log(`[${methodName}] Init`);
     return this.todoService.pendingTasks();
   }
 
@@ -67,7 +67,7 @@ export class TodoController {
   })
   finishedTasks() {
     const methodName = this.finishedTasks.name;
-    this.customLogger.log(`[${methodName}] init`);
+    this.customLogger.log(`[${methodName}] Init`);
     return this.todoService.finishedTasks();
   }
 
@@ -82,7 +82,7 @@ export class TodoController {
   })
   findOne(@Param('id') id: mongoose.Types.ObjectId) {
     const methodName = this.findOne.name;
-    this.customLogger.log(`[${methodName}] init`);
+    this.customLogger.log(`[${methodName}] Init`);
     return this.todoService.findOne(id);
   }
 
@@ -100,7 +100,7 @@ export class TodoController {
     @Body() updateTodoDto: UpdateTodoDto,
   ) {
     const methodName = this.update.name;
-    this.customLogger.log(`[${methodName}] init`);
+    this.customLogger.log(`[${methodName}] Init`);
     return this.todoService.update(id, updateTodoDto);
   }
 
@@ -116,7 +116,7 @@ export class TodoController {
   })
   retrieve(@Param('id') id: mongoose.Types.ObjectId) {
     const methodName = this.retrieve.name;
-    this.customLogger.log(`[${methodName}] init`);
+    this.customLogger.log(`[${methodName}] Init`);
     return this.todoService.retrieve(id);
   }
 
@@ -135,7 +135,7 @@ export class TodoController {
     @Param('softDelete') softDelete?: boolean,
   ) {
     const methodName = this.remove.name;
-    this.customLogger.log(`[${methodName}] init`);
+    this.customLogger.log(`[${methodName}] Init`);
     const soft_delete = softDelete ? true : false;
     return this.todoService.remove(id, soft_delete);
   }
