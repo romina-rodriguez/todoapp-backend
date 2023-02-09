@@ -46,7 +46,7 @@ export class TodoController {
     summary: 'Returns all pending tasks',
   })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Shows user an array containing all pending tasks objects',
     type: [ResponseTaskDto],
   })
@@ -61,7 +61,7 @@ export class TodoController {
     summary: 'Returns all finished tasks',
   })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Shows user an array containing all finished tasks objects',
     type: [ResponseTaskDto],
   })
@@ -76,7 +76,7 @@ export class TodoController {
     summary: 'Returns one task searched by its id',
   })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Shows user the task object they were looking for',
     type: ResponseTaskDto,
   })
@@ -91,7 +91,7 @@ export class TodoController {
     summary: 'Updates one task by its id',
   })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Shows user the updated task object',
     type: ResponseTaskDto,
   })
@@ -110,7 +110,7 @@ export class TodoController {
       'Updates one task by its id, changing its isDeleted attribute to false',
   })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Shows user the updated task object',
     type: ResponseTaskDto,
   })
@@ -126,7 +126,7 @@ export class TodoController {
       'Deletes one task by its id, or updates it changing its isDeleted attribute to true when soft deletion is on',
   })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Shows user deleted/updated task object',
     type: ResponseTaskDto,
   })
