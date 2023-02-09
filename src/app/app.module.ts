@@ -5,10 +5,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ResourcesModule } from 'src/resources/resources.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { LoggerModule } from '../logger/logger.module';
 
 @Module({
   imports: [
     ResourcesModule,
+    LoggerModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

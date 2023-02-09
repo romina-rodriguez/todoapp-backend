@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
 
@@ -35,49 +35,50 @@ export class TodoRepository {
   }
 
   async findOne(id: mongoose.Types.ObjectId) {
-    try {
-      const request: ITodo | null = await this.todoModel.findOne({ _id: id });
-      return request;
-    } catch (error) {
-      throw new NotFoundException(`A task with id: ${id} does not exist`);
-    }
+    const methodName = this.findOne.name;
+    this.customLogger.log(`[${methodName}] init, updating data...`);
+    const request: ITodo | null = await this.todoModel.findOne({ _id: id });
+    this.customLogger.log(`[${methodName}] success`);
+    return request;
   }
 
   async update(id: mongoose.Types.ObjectId, updateTodoDto: UpdateTodoDto) {
-    try {
-      const request: ITodo | null = await this.todoModel.findByIdAndUpdate(
-        id,
-        updateTodoDto,
-        { new: true },
-      );
-      return request;
-    } catch (error) {
-      throw new NotFoundException(`A task with id: ${id} does not exist`);
-    }
+    const methodName = this.update.name;
+    this.customLogger.log(`[${methodName}] init, updating data...`);
+    const request: ITodo | null = await this.todoModel.findByIdAndUpdate(
+      id,
+      updateTodoDto,
+      { new: true },
+    );
+    this.customLogger.log(`[${methodName}] success`);
+    return request;
   }
 
   async retrieve(id: mongoose.Types.ObjectId) {
-    try {
-      return await this.todoModel.findByIdAndUpdate(id, { isDeleted: false });
-    } catch (error) {
-      throw new NotFoundException(`A task with id: ${id} does not exist`);
-    }
+    const methodName = this.retrieve.name;
+    this.customLogger.log(`[${methodName}] init, updating data...`);
+    const request: ITodo | null = await this.todoModel.findByIdAndUpdate(id, {
+      isDeleted: false,
+    });
+    this.customLogger.log(`[${methodName}] success`);
+    return request;
   }
 
   async remove(id: mongoose.Types.ObjectId, sofDelete: boolean) {
-    try {
-      if (sofDelete) {
-        const request: ITodo | null = await this.todoModel.findOneAndUpdate(
-          { _id: id },
-          { isDeleted: true },
-          { new: true },
-        );
-        return request;
-      } else {
-        return this.todoModel.findByIdAndDelete(id);
-      }
-    } catch (error) {
-      throw new NotFoundException(`A task with id: ${id} does not exist`);
+    const methodName = this.remove.name;
+    this.customLogger.log(`[${methodName}] init, removing data...`);
+    if (sofDelete) {
+      const request: ITodo | null = await this.todoModel.findOneAndUpdate(
+        { _id: id },
+        { isDeleted: true },
+        { new: true },
+      );
+      this.customLogger.log(`[${methodName}] success`);
+      return request;
+    } else {
+      const request: ITodo | null = await this.todoModel.findByIdAndDelete(id);
+      this.customLogger.log(`[${methodName}] success`);
+      return request;
     }
   }
 }
