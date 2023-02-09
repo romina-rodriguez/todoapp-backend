@@ -4,6 +4,7 @@ import mongoose, { Model } from 'mongoose';
 
 import { CustomLogger } from '../../../logger/custom-logger.service';
 import { CreateTodoDto } from '../dto/create-todo.dto';
+import { updateTodoDto } from '../dto/update-todo.dto';
 import { ITodo } from '../interface/todo.interface';
 import { Todo, TodoDocument } from './todo.schema';
 
@@ -42,11 +43,13 @@ export class TodoRepository {
     }
   }
 
-  async update(id: mongoose.Types.ObjectId) {
+  async update(id: mongoose.Types.ObjectId, updateTodoDto: updateTodoDto) {
     try {
-      const request: ITodo | null = await this.todoModel.findByIdAndUpdate(id, {
-        done: true,
-      });
+      const request: ITodo | null = await this.todoModel.findByIdAndUpdate(
+        id,
+        updateTodoDto,
+        { new: true },
+      );
       return request;
     } catch (error) {
       throw new NotFoundException(`A task with id: ${id} does not exist`);

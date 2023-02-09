@@ -30,7 +30,7 @@ export class ResponseTaskDto {
   @ApiProperty({
     description: 'Boolean that indicates wether the task is done or not',
     type: Boolean,
-    required: false,
+    required: true,
   })
   @IsNotEmpty()
   @IsBoolean()

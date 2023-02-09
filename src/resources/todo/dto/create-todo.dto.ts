@@ -12,7 +12,7 @@ export class CreateTodoDto {
   task: string;
 
   @ApiProperty({
-    description: 'Boolean that indicates wether the task is done or not',
+    description: 'Status boolean that indicates wether the task is done or not',
     type: Boolean,
     required: false,
   })

@@ -14,6 +14,7 @@ import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { CustomLogger } from '../../logger/custom-logger.service';
 import { ResponseTaskDto } from './dto/response-task.dto';
+import { updateTodoDto } from './dto/update-todo.dto';
 
 @ApiTags('To-Do App')
 @Controller()
@@ -94,10 +95,13 @@ export class TodoController {
     description: 'Shows user the updated task object',
     type: ResponseTaskDto,
   })
-  update(@Param('id') id: mongoose.Types.ObjectId) {
+  update(
+    @Param('id') id: mongoose.Types.ObjectId,
+    @Body() updateTodoDto: updateTodoDto,
+  ) {
     const methodName = this.update.name;
     this.customLogger.log(`[${methodName}] init`);
-    return this.todoService.update(id);
+    return this.todoService.update(id, updateTodoDto);
   }
 
   @Patch('update/soft-delete/retrieve/:id')
