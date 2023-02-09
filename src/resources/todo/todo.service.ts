@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 import { CustomLogger } from '../../logger/custom-logger.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
-import { updateTodoDto } from './dto/update-todo.dto';
+import { UpdateTodoDto } from './dto/update-todo.dto';
 import { TodoRepository } from './schema/todo.repository';
 
 @Injectable()
@@ -39,7 +39,7 @@ export class TodoService {
     return this.todoRepository.findOne(id);
   }
 
-  update(id: mongoose.Types.ObjectId, updateTodoDto: updateTodoDto) {
+  update(id: mongoose.Types.ObjectId, updateTodoDto: UpdateTodoDto) {
     const methodName = this.update.name;
     this.customLogger.log(`[${methodName}] init`);
     return this.todoRepository.update(id, updateTodoDto);
