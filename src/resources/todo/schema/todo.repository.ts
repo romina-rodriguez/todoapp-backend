@@ -36,7 +36,7 @@ export class TodoRepository {
 
   async findOne(id: mongoose.Types.ObjectId) {
     const methodName = this.findOne.name;
-    this.customLogger.log(`[${methodName}] init, updating data...`);
+    this.customLogger.log(`[${methodName}] init, querying data...`);
     const request: ITodo | null = await this.todoModel.findOne({ _id: id });
     this.customLogger.log(`[${methodName}] success`);
     return request;
