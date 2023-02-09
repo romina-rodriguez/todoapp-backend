@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { HydratedDocument, SchemaTimestampsConfig } from 'mongoose';
 
 @Schema({ timestamps: true })
 export class Todo {
@@ -13,7 +13,7 @@ export class Todo {
   isDeleted: boolean;
 }
 
-export type TodoDocument = Todo & Document;
+export type TodoDocument = HydratedDocument<Todo> & SchemaTimestampsConfig;
 export const TodoSchema = SchemaFactory.createForClass(Todo);
 
 TodoSchema.pre('find', function () {

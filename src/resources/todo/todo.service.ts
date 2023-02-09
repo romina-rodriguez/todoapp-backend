@@ -1,50 +1,62 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import mongoose from 'mongoose';
+import { CustomLogger } from 'src/logger/custom-logger.service';
 
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { TodoRepository } from './schema/todo.repository';
 
 @Injectable()
 export class TodoService {
-  private logger = new Logger(TodoService.name);
-
-  constructor(private todoRepository: TodoRepository) {}
+  constructor(
+    private readonly todoRepository: TodoRepository,
+    private customLogger: CustomLogger,
+  ) {
+    this.customLogger.setContext(TodoService.name);
+  }
 
   create(createTodoDto: CreateTodoDto) {
-    this.logger.verbose('Created to-do task');
+    const methodName = this.create.name;
+    this.customLogger.log(`[${methodName}] init`);
     return this.todoRepository.save(createTodoDto);
   }
 
   pendingTasks() {
-    this.logger.verbose('Found all pending tasks');
+    const methodName = this.pendingTasks.name;
+    this.customLogger.log(`[${methodName}] init`);
     return this.todoRepository.findTasks(false);
   }
 
   finishedTasks() {
-    this.logger.verbose('Found all finished tasks');
+    const methodName = this.finishedTasks.name;
+    this.customLogger.log(`[${methodName}] init`);
     return this.todoRepository.findTasks(true);
   }
 
-  findOne(id: mongoose.Schema.Types.ObjectId) {
-    this.logger.verbose(`Returned task with id: ${id}`);
+  findOne(id: mongoose.Types.ObjectId) {
+    const methodName = this.findOne.name;
+    this.customLogger.log(`[${methodName}] init`);
     return this.todoRepository.findOne(id);
   }
 
-  update(id: mongoose.Schema.Types.ObjectId) {
-    this.logger.verbose(`Updated status of task with id: ${id}`);
+  update(id: mongoose.Types.ObjectId) {
+    const methodName = this.update.name;
+    this.customLogger.log(`[${methodName}] init`);
     return this.todoRepository.update(id);
   }
 
-  retrieve(id: mongoose.Schema.Types.ObjectId) {
-    this.logger.verbose(`Retrieved previously deleted task with id: ${id}`);
+  retrieve(id: mongoose.Types.ObjectId) {
+    const methodName = this.retrieve.name;
+    this.customLogger.log(`[${methodName}] init`);
     return this.todoRepository.retrieve(id);
   }
 
-  remove(id: mongoose.Schema.Types.ObjectId, sofDelete: boolean) {
+  remove(id: mongoose.Types.ObjectId, sofDelete: boolean) {
     if (sofDelete) {
-      this.logger.verbose(`Soft deleted task with id: ${id}`);
+      const methodName = this.remove.name;
+      this.customLogger.log(`[${methodName}][sofDelete=${sofDelete}] init`);
     } else {
-      this.logger.verbose(`Deleted task with id: ${id}`);
+      const methodName = this.remove.name;
+      this.customLogger.log(`[${methodName}] init`);
     }
     return this.todoRepository.remove(id, sofDelete);
   }

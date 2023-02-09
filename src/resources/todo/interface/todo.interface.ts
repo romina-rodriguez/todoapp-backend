@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 
 export interface ITodo {
-  _id: mongoose.Schema.Types.ObjectId;
+  _id: mongoose.Types.ObjectId;
   task: string;
   done: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: string | boolean;
+  updatedAt?: string | boolean;
   isDeleted: boolean;
-  __v: number;
+  __v?: number;
 }
