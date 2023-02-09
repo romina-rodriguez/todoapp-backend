@@ -22,9 +22,9 @@ import { CustomLogger } from '../logger/custom-logger.service';
   Error.ValidatorError,
   Error.VersionError,
 )
-export class MongoExceptionFilter implements ExceptionFilter {
+export class MongooseExceptionFilter implements ExceptionFilter {
   constructor(private customLogger: CustomLogger) {
-    this.customLogger.setContext(MongoExceptionFilter.name);
+    this.customLogger.setContext(MongooseExceptionFilter.name);
   }
 
   catch(
@@ -55,8 +55,8 @@ export class MongoExceptionFilter implements ExceptionFilter {
       method: request.method,
       detail: exception.message,
     };
-    console.log('is here');
-    this.customLogger.error(errorDetail);
-    return response.status(status).json(errorDetail);
+
+    this.customLogger.error(JSON.stringify(errorDetail, null, 6));
+    response.status(status).json(errorDetail);
   }
 }

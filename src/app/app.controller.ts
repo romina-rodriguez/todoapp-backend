@@ -1,11 +1,11 @@
 import { Controller, Get, UseFilters } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { MongoExceptionFilter } from '../filters/mongo-exception.filter';
+import { MongooseExceptionFilter } from '../filters/mongoose-exception.filter';
 import { AppService } from './app.service';
 
 @ApiTags('App')
-@UseFilters(MongoExceptionFilter)
+@UseFilters(MongooseExceptionFilter)
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
