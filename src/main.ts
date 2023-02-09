@@ -1,31 +1,32 @@
-import {
-  Injectable,
-  Logger,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 import { AppModule } from './app/app.module';
+import { CustomLogger } from './logger/custom-logger.service';
 
 @Injectable()
 class Main {
-  private origin;
-  private port;
-  private logger;
+  private origin: string[];
+  private port: number;
+  private env: string;
 
-  constructor(private configService: ConfigService) {
+  constructor(
+    private configService: ConfigService,
+    private customLogger: CustomLogger,
+  ) {
     this.origin = (
       this.configService.get<string>('ORIGIN') || 'http://localhost:3001'
     ).split(',');
     this.port = this.configService.get<number>('PORT') || 3015;
-    this.logger = new Logger(Main.name);
+    this.env = this.configService.get<string>('ENV') || 'dev';
+    this.customLogger.setContext(Main.name);
   }
 
   async bootstrap() {
     const app = await NestFactory.create(AppModule, {
-      logger: ['debug', 'error', 'log', 'verbose', 'warn'],
+      logger: this.env === 'prod' ? ['log', 'warn', 'error'] : ['debug'],
     });
     app.enableCors({
       origin: (origin: string, callback: any) => {
@@ -47,11 +48,11 @@ class Main {
     SwaggerModule.setup('docs', app, document);
 
     await app.listen(this.port);
-    this.logger.verbose(
+    this.customLogger.log(
       `🚀 Application is running on: http://localhost:${this.port}`,
     );
   }
 }
 
-const main = new Main(new ConfigService());
+const main = new Main(new ConfigService(), new CustomLogger());
 main.bootstrap();
