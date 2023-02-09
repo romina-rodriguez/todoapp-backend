@@ -5,7 +5,7 @@ import { TodoService } from './todo.service';
 import { TodoController } from './todo.controller';
 import { Todo, TodoSchema } from './schema/todo.schema';
 import { TodoRepository } from './schema/todo.repository';
-import { LoggerModule } from 'src/logger/logger.module';
+import { LoggerModule } from '../../logger/logger.module';
 
 @Module({
   imports: [

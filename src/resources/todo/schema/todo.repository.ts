@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
-import { CustomLogger } from 'src/logger/custom-logger.service';
 
+import { CustomLogger } from '../../../logger/custom-logger.service';
 import { CreateTodoDto } from '../dto/create-todo.dto';
 import { ITodo } from '../interface/todo.interface';
 import { Todo, TodoDocument } from './todo.schema';

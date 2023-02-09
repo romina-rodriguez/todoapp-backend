@@ -12,7 +12,7 @@ import { ApiTags } from '@nestjs/swagger';
 
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
-import { CustomLogger } from 'src/logger/custom-logger.service';
+import { CustomLogger } from '../../logger/custom-logger.service';
 
 @ApiTags('To-Do App')
 @Controller()
