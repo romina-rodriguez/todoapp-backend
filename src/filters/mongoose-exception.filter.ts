@@ -10,40 +10,14 @@ import { Request, Response } from 'express';
 
 import { CustomLogger } from '../logger/custom-logger.service';
 
-@Catch(
-  Error.CastError,
-  Error.DivergentArrayError,
-  Error.DocumentNotFoundError,
-  Error.MissingSchemaError,
-  Error.MongooseServerSelectionError,
-  Error.OverwriteModelError,
-  Error.ParallelSaveError,
-  Error.StrictModeError,
-  Error.ValidationError,
-  Error.ValidatorError,
-  Error.VersionError,
-)
+@Catch(Error)
 @Injectable()
 export class MongooseExceptionFilter implements ExceptionFilter {
   constructor(private customLogger: CustomLogger) {
     this.customLogger.setContext(MongooseExceptionFilter.name);
   }
 
-  catch(
-    exception:
-      | Error.CastError
-      | Error.DivergentArrayError
-      | Error.DocumentNotFoundError
-      | Error.MissingSchemaError
-      | Error.MongooseServerSelectionError
-      | Error.OverwriteModelError
-      | Error.ParallelSaveError
-      | Error.StrictModeError
-      | Error.ValidationError
-      | Error.ValidatorError
-      | Error.VersionError,
-    host: ArgumentsHost,
-  ) {
+  catch(exception: Error, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
