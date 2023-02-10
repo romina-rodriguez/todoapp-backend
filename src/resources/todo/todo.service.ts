@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import mongoose from 'mongoose';
 
-import { CustomLogger } from '../../logger/custom-logger.service';
+import { CustomLogger } from '../../common/logger/custom-logger.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 import { TodoRepository } from './schema/todo.repository';

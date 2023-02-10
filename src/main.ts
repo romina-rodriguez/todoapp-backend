@@ -4,8 +4,8 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 import { AppModule } from './app/app.module';
-import { MongooseExceptionFilter } from './filters/mongoose-exception.filter';
-import { CustomLogger } from './logger/custom-logger.service';
+import { MongooseExceptionFilter } from './common/filters/mongoose-exception.filter';
+import { CustomLogger } from './common/logger/custom-logger.service';
 
 class Main {
   private origin: string[];

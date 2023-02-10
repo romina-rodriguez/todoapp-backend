@@ -1,7 +1,7 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { CustomLogger } from '../../logger/custom-logger.service';
+import { CustomLogger } from '../../common/logger/custom-logger.service';
 import { TodoRepository } from './schema/todo.repository';
 import { Todo } from './schema/todo.schema';
 import { TodoController } from './todo.controller';

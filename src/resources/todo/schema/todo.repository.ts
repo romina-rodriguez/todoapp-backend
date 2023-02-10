@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
 
-import { CustomLogger } from '../../../logger/custom-logger.service';
+import { CustomLogger } from '../../../common/logger/custom-logger.service';
 import { CreateTodoDto } from '../dto/create-todo.dto';
 import { UpdateTodoDto } from '../dto/update-todo.dto';
 import { ITodo } from '../interface/todo.interface';

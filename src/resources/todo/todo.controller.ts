@@ -12,9 +12,10 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
-import { CustomLogger } from '../../logger/custom-logger.service';
+import { CustomLogger } from '../../common/logger/custom-logger.service';
 import { ResponseTaskDto } from './dto/response-task.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
+import { ObjectIdValidationPipe } from '../../common/pipes/object-id-validation.pipe';
 
 @ApiTags('To-Do')
 @Controller()
@@ -80,7 +81,7 @@ export class TodoController {
     description: 'Shows user the task object they were looking for',
     type: ResponseTaskDto,
   })
-  findOne(@Param('id') id: mongoose.Types.ObjectId) {
+  findOne(@Param('id', ObjectIdValidationPipe) id: mongoose.Types.ObjectId) {
     const methodName = this.findOne.name;
     this.customLogger.log(`[${methodName}] Init`);
     return this.todoService.findOne(id);
@@ -96,7 +97,7 @@ export class TodoController {
     type: ResponseTaskDto,
   })
   update(
-    @Param('id') id: mongoose.Types.ObjectId,
+    @Param('id', ObjectIdValidationPipe) id: mongoose.Types.ObjectId,
     @Body() updateTodoDto: UpdateTodoDto,
   ) {
     const methodName = this.update.name;
@@ -114,7 +115,7 @@ export class TodoController {
     description: 'Shows user the updated task object',
     type: ResponseTaskDto,
   })
-  retrieve(@Param('id') id: mongoose.Types.ObjectId) {
+  retrieve(@Param('id', ObjectIdValidationPipe) id: mongoose.Types.ObjectId) {
     const methodName = this.retrieve.name;
     this.customLogger.log(`[${methodName}] Init`);
     return this.todoService.retrieve(id);
@@ -131,7 +132,7 @@ export class TodoController {
     type: ResponseTaskDto,
   })
   remove(
-    @Param('id') id: mongoose.Types.ObjectId,
+    @Param('id', ObjectIdValidationPipe) id: mongoose.Types.ObjectId,
     @Param('softDelete') softDelete?: boolean,
   ) {
     const methodName = this.remove.name;
