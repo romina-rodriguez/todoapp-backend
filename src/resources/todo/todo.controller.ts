@@ -8,7 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import mongoose from 'mongoose';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
@@ -30,6 +30,10 @@ export class TodoController {
   @Post('create-task')
   @ApiOperation({
     summary: 'Creates a new task to add to the existing checklist',
+  })
+  @ApiBody({
+    description: 'Enter the new task data',
+    type: CreateTodoDto,
   })
   @ApiResponse({
     status: 201,
@@ -90,6 +94,10 @@ export class TodoController {
   @Patch('update/:id')
   @ApiOperation({
     summary: 'Updates one task by its id',
+  })
+  @ApiBody({
+    description: 'Enter the task data to be updated',
+    type: UpdateTodoDto,
   })
   @ApiResponse({
     status: 200,
