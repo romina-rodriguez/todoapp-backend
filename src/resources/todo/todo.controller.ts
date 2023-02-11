@@ -35,7 +35,7 @@ export class TodoController {
 
   @Post('')
   @ApiOperation({
-    summary: 'Creates a new task to add to the existing checklist',
+    summary: 'Creates a new task',
   })
   @ApiBody({
     description: 'Enter the new task data',

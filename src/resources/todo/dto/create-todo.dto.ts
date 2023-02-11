@@ -3,7 +3,8 @@ import { IsNotEmpty, IsString, IsBoolean, IsOptional } from 'class-validator';
 
 export class CreateTodoDto {
   @ApiProperty({
-    description: 'New task to add to the checklist',
+    description: 'New task description',
+    example: 'Sleep',
     type: String,
     required: true,
   })
@@ -13,6 +14,7 @@ export class CreateTodoDto {
 
   @ApiProperty({
     description: 'Status boolean that indicates wether the task is done or not',
+    example: false,
     type: Boolean,
     required: false,
   })
