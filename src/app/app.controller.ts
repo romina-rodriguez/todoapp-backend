@@ -1,12 +1,18 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
+import { CustomLogger } from '../common/logger/custom-logger.service';
 import { AppService } from './app.service';
 
 @ApiTags('App')
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private customLogger: CustomLogger,
+  ) {
+    this.customLogger.setContext(AppController.name);
+  }
 
   @Get()
   @ApiOperation({
@@ -18,6 +24,8 @@ export class AppController {
     type: Object,
   })
   getData() {
+    const methodName = this.getData.name;
+    this.customLogger.log(`[${methodName}] Init`);
     return this.appService.getData();
   }
 }

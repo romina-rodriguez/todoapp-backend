@@ -22,7 +22,7 @@ export class TodoRepository {
     const methodName = this.save.name;
     this.customLogger.log(`[${methodName}] Init, saving data...`);
     const request: ITodo = await this.todoModel.create(createTodoDto);
-    this.customLogger.log(`[${methodName}] success`);
+    this.customLogger.log(`[${methodName}] Success`);
     return request;
   }
 
@@ -30,7 +30,7 @@ export class TodoRepository {
     const methodName = this.findTasks.name;
     this.customLogger.log(`[${methodName}] Init, querying data...`);
     const request: ITodo[] = await this.todoModel.find({ done: status });
-    this.customLogger.log(`[${methodName}] success`);
+    this.customLogger.log(`[${methodName}] Success`);
     return request;
   }
 
@@ -40,7 +40,7 @@ export class TodoRepository {
     const request: ITodo | null = await this.todoModel.findById(id);
     request === null
       ? this.customLogger.error(`A task object with id "${id}" does not exist`)
-      : this.customLogger.log(`[${methodName}] success`);
+      : this.customLogger.log(`[${methodName}] Success`);
     return request;
   }
 
@@ -54,7 +54,7 @@ export class TodoRepository {
     );
     request === null
       ? this.customLogger.error(`A task object with id "${id}" does not exist`)
-      : this.customLogger.log(`[${methodName}] success`);
+      : this.customLogger.log(`[${methodName}] Success`);
     return request;
   }
 
@@ -66,7 +66,7 @@ export class TodoRepository {
     });
     request === null
       ? this.customLogger.error(`A task object with id "${id}" does not exist`)
-      : this.customLogger.log(`[${methodName}] success`);
+      : this.customLogger.log(`[${methodName}] Success`);
     return request;
   }
 
@@ -83,7 +83,7 @@ export class TodoRepository {
         ? this.customLogger.error(
             `A task object with id "${id}" does not exist`,
           )
-        : this.customLogger.log(`[${methodName}] success`);
+        : this.customLogger.log(`[${methodName}] Success`);
       return request;
     } else {
       const request: ITodo | null = await this.todoModel.findByIdAndDelete(id);
@@ -91,7 +91,7 @@ export class TodoRepository {
         ? this.customLogger.error(
             `A task object with id "${id}" does not exist`,
           )
-        : this.customLogger.log(`[${methodName}] success`);
+        : this.customLogger.log(`[${methodName}] Success`);
       return request;
     }
   }
