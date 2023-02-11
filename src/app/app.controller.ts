@@ -1,10 +1,16 @@
 import { Controller, Get } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiExcludeController,
+} from '@nestjs/swagger';
 
 import { CustomLogger } from '../common/logger/custom-logger.service';
 import { AppService } from './app.service';
 
 @ApiTags('App')
+@ApiExcludeController()
 @Controller()
 export class AppController {
   constructor(
