@@ -8,7 +8,13 @@ import {
   Delete,
 } from '@nestjs/common';
 import mongoose from 'mongoose';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  ApiHeader,
+} from '@nestjs/swagger';
 
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
@@ -27,7 +33,7 @@ export class TodoController {
     this.customLogger.setContext(TodoController.name);
   }
 
-  @Post('create-task')
+  @Post('')
   @ApiOperation({
     summary: 'Creates a new task to add to the existing checklist',
   })
@@ -46,7 +52,7 @@ export class TodoController {
     return this.todoService.create(createTodoDto);
   }
 
-  @Get('search/pending')
+  @Get('pending')
   @ApiOperation({
     summary: 'Returns all pending tasks',
   })
@@ -61,7 +67,7 @@ export class TodoController {
     return this.todoService.pendingTasks();
   }
 
-  @Get('search/done')
+  @Get('done')
   @ApiOperation({
     summary: 'Returns all finished tasks',
   })
@@ -76,9 +82,13 @@ export class TodoController {
     return this.todoService.finishedTasks();
   }
 
-  @Get('find/:id')
+  @Get(':id')
+  @ApiHeader({
+    name: '_id',
+    description: 'Task ObjectId',
+  })
   @ApiOperation({
-    summary: 'Returns one task searched by its id',
+    summary: 'Returns one task by its id',
   })
   @ApiResponse({
     status: 200,
@@ -91,7 +101,11 @@ export class TodoController {
     return this.todoService.findOne(id);
   }
 
-  @Patch('update/:id')
+  @Patch(':id')
+  @ApiHeader({
+    name: '_id',
+    description: 'Task ObjectId',
+  })
   @ApiOperation({
     summary: 'Updates one task by its id',
   })
@@ -113,7 +127,11 @@ export class TodoController {
     return this.todoService.update(id, updateTodoDto);
   }
 
-  @Patch('update/soft-delete/retrieve/:id')
+  @Patch('retrieve/:id')
+  @ApiHeader({
+    name: '_id',
+    description: 'Task ObjectId',
+  })
   @ApiOperation({
     summary:
       'Updates one task by its id, changing its isDeleted attribute to false',
@@ -129,7 +147,11 @@ export class TodoController {
     return this.todoService.retrieve(id);
   }
 
-  @Delete('delete/:softDelete?/:id')
+  @Delete(':softDelete?/:id')
+  @ApiHeader({
+    name: '_id',
+    description: 'Task ObjectId',
+  })
   @ApiOperation({
     summary:
       'Deletes one task by its id, or updates it changing its isDeleted attribute to true when soft deletion is on',
