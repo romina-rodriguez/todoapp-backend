@@ -57,7 +57,9 @@ class Main {
 
     const config = new DocumentBuilder()
       .setTitle('To-Do App API')
-      .setDescription('To-Do App API description')
+      .setDescription(
+        'Documentation of all available endpoints that this API currently has.',
+      )
       .setVersion('1.0')
       .addBearerAuth()
       .build();
