@@ -3,12 +3,10 @@ import { ConfigService } from '@nestjs/config';
 import { Client } from '@opensearch-project/opensearch';
 
 @Injectable()
-export class OpensearchService {
+export class OpenSearchService {
   private client: Client;
-  //private index: string;
 
   constructor(private configService: ConfigService) {
-    //const index = this.configService.get<string>('OPENSEARCH_INDEX');
     const protocol = this.configService.get<string>('OPENSEARCH_PROTOCOL');
     const host = this.configService.get<string>('OPENSEARCH_HOST');
     const port = this.configService.get<string>('OPENSEARCH_PORT');
@@ -19,16 +17,29 @@ export class OpensearchService {
     this.client = new Client({
       node: protocol + '://' + auth + '@' + host + ':' + port,
       ssl: {
-        rejectUnauthorized: true,
+        rejectUnauthorized: false,
       },
     });
   }
 
-  async saveObject(object: object): Promise<void> {
-    await this.client.index({
-      index: 'todoapp',
-      body: object,
-      refresh: true,
-    });
+  async saveObject(object: object): Promise<string | undefined> {
+    try {
+      const date = new Date()
+        .toLocaleString('es-CL', {
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric',
+        })
+        .split('-')
+        .join('.');
+      const dailyIndex = 'qa-cencodesk-log-' + date;
+      await this.client.index({
+        index: dailyIndex,
+        body: object,
+        refresh: true,
+      });
+    } catch (error) {
+      return 'Error saving object in OpenSearch cluster';
+    }
   }
 }
