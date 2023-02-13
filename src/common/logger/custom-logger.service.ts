@@ -1,9 +1,13 @@
 import { Injectable, Scope, ConsoleLogger, LogLevel } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import * as chalk from 'chalk';
+
+import { OpensearchService } from '../providers/opensearch.provider';
 
 @Injectable({ scope: Scope.TRANSIENT })
 export class CustomLogger extends ConsoleLogger {
   protected methodName: string;
+  private openSearchService = new OpensearchService(new ConfigService());
 
   setMethodName(methodName: string): void {
     this.methodName = methodName;
@@ -23,11 +27,23 @@ export class CustomLogger extends ConsoleLogger {
     contextMessage: string,
     timestampDiff: string,
   ): string {
-    const output = this.stringifyMessage(message, logLevel);
-    return `${this.colorize(
-      pidMessage,
+    const timestamp = this.getTimestamp();
+
+    const numberOnly = (value: string) => {
+      return value.replace(/[^0-9]/g, '');
+    };
+    const JSONLoggerMessage = {
+      pidMessage: numberOnly(pidMessage),
+      timestamp: timestamp,
       logLevel,
-    )} ${this.getTimestamp()} ${this.colorize(
+      contextMessage,
+      message,
+      timestampDiff,
+    };
+    this.openSearchService.saveObject(JSONLoggerMessage);
+
+    const output = this.stringifyMessage(message, logLevel);
+    return `${this.colorize(pidMessage, logLevel)} ${timestamp} ${this.colorize(
       formattedLogLevel,
       logLevel,
     )} ${chalk.yellow(contextMessage)} ${output} ${timestampDiff}\n`;
