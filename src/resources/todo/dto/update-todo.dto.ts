@@ -6,6 +6,7 @@ import { CreateTodoDto } from './create-todo.dto';
 export class UpdateTodoDto extends PartialType(CreateTodoDto) {
   @ApiProperty({
     description: 'Task description to be updated',
+    example: 'Sleep',
     type: String,
     required: false,
   })
@@ -15,6 +16,7 @@ export class UpdateTodoDto extends PartialType(CreateTodoDto) {
 
   @ApiProperty({
     description: 'Status boolean to be updated',
+    example: false,
     type: Boolean,
     required: false,
   })
