@@ -13,7 +13,7 @@ import {
   ApiOperation,
   ApiResponse,
   ApiTags,
-  ApiHeader,
+  ApiParam,
 } from '@nestjs/swagger';
 
 import { TodoService } from './todo.service';
@@ -83,7 +83,7 @@ export class TodoController {
   }
 
   @Get(':id')
-  @ApiHeader({
+  @ApiParam({
     name: '_id',
     description: 'Task ObjectId',
   })
@@ -102,7 +102,7 @@ export class TodoController {
   }
 
   @Patch(':id')
-  @ApiHeader({
+  @ApiParam({
     name: '_id',
     description: 'Task ObjectId',
   })
@@ -119,7 +119,7 @@ export class TodoController {
     type: ResponseTaskDto,
   })
   update(
-    @Param('id', ObjectIdValidationPipe) id: mongoose.Types.ObjectId,
+    @Param('id') id: mongoose.Types.ObjectId,
     @Body() updateTodoDto: UpdateTodoDto,
   ) {
     this.customLogger.setMethodName(this.update.name);
@@ -128,7 +128,7 @@ export class TodoController {
   }
 
   @Patch('retrieve/:id')
-  @ApiHeader({
+  @ApiParam({
     name: '_id',
     description: 'Task ObjectId',
   })
@@ -148,7 +148,7 @@ export class TodoController {
   }
 
   @Delete(':softDelete?/:id')
-  @ApiHeader({
+  @ApiParam({
     name: '_id',
     description: 'Task ObjectId',
   })

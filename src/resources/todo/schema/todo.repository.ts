@@ -52,9 +52,6 @@ export class TodoRepository {
       updateTodoDto,
       { new: true },
     );
-    request === null
-      ? this.customLogger.error(`A task object with id "${id}" does not exist`)
-      : this.customLogger.log(`Success`);
     return request;
   }
 
