@@ -28,6 +28,7 @@
     "@nestjs/mongoose": "^9.2.1",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.1.4",
+    "@opensearch-project/opensearch": "^2.2.0",
     "@types/mongoose": "^5.11.97",
     "class-validator": "^0.13.2",
     "mongoose": "^6.8.4",

@@ -11,7 +11,7 @@ import mongoose from 'mongoose';
 
 export class ResponseTaskDto {
   @ApiProperty({
-    description: 'Unique mongo id identifier of the new task',
+    description: 'Unique mongo identifier of the new task',
     example: '63e3b3d44ed62e2f3c747952',
     type: String,
     required: true,
