@@ -47,8 +47,8 @@ export class TodoController {
     type: ResponseTaskDto,
   })
   create(@Body() createTodoDto: CreateTodoDto) {
-    const methodName = this.create.name;
-    this.customLogger.log(`[${methodName}] Init`);
+    this.customLogger.setMethodName(this.create.name);
+    this.customLogger.log(`Init`);
     return this.todoService.create(createTodoDto);
   }
 
@@ -62,8 +62,8 @@ export class TodoController {
     type: [ResponseTaskDto],
   })
   pendingTasks() {
-    const methodName = this.pendingTasks.name;
-    this.customLogger.log(`[${methodName}] Init`);
+    this.customLogger.setMethodName(this.pendingTasks.name);
+    this.customLogger.log(`Init`);
     return this.todoService.pendingTasks();
   }
 
@@ -77,8 +77,8 @@ export class TodoController {
     type: [ResponseTaskDto],
   })
   finishedTasks() {
-    const methodName = this.finishedTasks.name;
-    this.customLogger.log(`[${methodName}] Init`);
+    this.customLogger.setMethodName(this.finishedTasks.name);
+    this.customLogger.log(`Init`);
     return this.todoService.finishedTasks();
   }
 
@@ -96,8 +96,8 @@ export class TodoController {
     type: ResponseTaskDto,
   })
   findOne(@Param('id', ObjectIdValidationPipe) id: mongoose.Types.ObjectId) {
-    const methodName = this.findOne.name;
-    this.customLogger.log(`[${methodName}] Init`);
+    this.customLogger.setMethodName(this.findOne.name);
+    this.customLogger.log(`Init`);
     return this.todoService.findOne(id);
   }
 
@@ -122,8 +122,8 @@ export class TodoController {
     @Param('id', ObjectIdValidationPipe) id: mongoose.Types.ObjectId,
     @Body() updateTodoDto: UpdateTodoDto,
   ) {
-    const methodName = this.update.name;
-    this.customLogger.log(`[${methodName}] Init`);
+    this.customLogger.setMethodName(this.update.name);
+    this.customLogger.log(`Init`);
     return this.todoService.update(id, updateTodoDto);
   }
 
@@ -142,8 +142,8 @@ export class TodoController {
     type: ResponseTaskDto,
   })
   retrieve(@Param('id', ObjectIdValidationPipe) id: mongoose.Types.ObjectId) {
-    const methodName = this.retrieve.name;
-    this.customLogger.log(`[${methodName}] Init`);
+    this.customLogger.setMethodName(this.retrieve.name);
+    this.customLogger.log(`Init`);
     return this.todoService.retrieve(id);
   }
 
@@ -165,8 +165,8 @@ export class TodoController {
     @Param('id', ObjectIdValidationPipe) id: mongoose.Types.ObjectId,
     @Param('softDelete') softDelete?: boolean,
   ) {
-    const methodName = this.remove.name;
-    this.customLogger.log(`[${methodName}] Init`);
+    this.customLogger.setMethodName(this.remove.name);
+    this.customLogger.log(`Init`);
     const soft_delete = softDelete ? true : false;
     return this.todoService.remove(id, soft_delete);
   }

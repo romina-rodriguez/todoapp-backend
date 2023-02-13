@@ -19,34 +19,34 @@ export class TodoRepository {
   }
 
   async save(createTodoDto: CreateTodoDto) {
-    const methodName = this.save.name;
-    this.customLogger.log(`[${methodName}] Init, saving data...`);
+    this.customLogger.setMethodName(this.save.name);
+    this.customLogger.log(`Init, saving data...`);
     const request: ITodo = await this.todoModel.create(createTodoDto);
-    this.customLogger.log(`[${methodName}] Success`);
+    this.customLogger.log(`Success`);
     return request;
   }
 
   async findTasks(status: boolean) {
-    const methodName = this.findTasks.name;
-    this.customLogger.log(`[${methodName}] Init, querying data...`);
+    this.customLogger.setMethodName(this.findTasks.name);
+    this.customLogger.log(`Init, querying data...`);
     const request: ITodo[] = await this.todoModel.find({ done: status });
-    this.customLogger.log(`[${methodName}] Success`);
+    this.customLogger.log(`Success`);
     return request;
   }
 
   async findOne(id: mongoose.Types.ObjectId) {
-    const methodName = this.findOne.name;
-    this.customLogger.log(`[${methodName}] Init, querying data...`);
+    this.customLogger.setMethodName(this.findOne.name);
+    this.customLogger.log(`Init, querying data...`);
     const request: ITodo | null = await this.todoModel.findById(id);
     request === null
       ? this.customLogger.error(`A task object with id "${id}" does not exist`)
-      : this.customLogger.log(`[${methodName}] Success`);
+      : this.customLogger.log(`Success`);
     return request;
   }
 
   async update(id: mongoose.Types.ObjectId, updateTodoDto: UpdateTodoDto) {
-    const methodName = this.update.name;
-    this.customLogger.log(`[${methodName}] Init, updating data...`);
+    this.customLogger.setMethodName(this.update.name);
+    this.customLogger.log(`Init, updating data...`);
     const request: ITodo | null = await this.todoModel.findByIdAndUpdate(
       id,
       updateTodoDto,
@@ -54,25 +54,25 @@ export class TodoRepository {
     );
     request === null
       ? this.customLogger.error(`A task object with id "${id}" does not exist`)
-      : this.customLogger.log(`[${methodName}] Success`);
+      : this.customLogger.log(`Success`);
     return request;
   }
 
   async retrieve(id: mongoose.Types.ObjectId) {
-    const methodName = this.retrieve.name;
-    this.customLogger.log(`[${methodName}] Init, updating data...`);
+    this.customLogger.setMethodName(this.retrieve.name);
+    this.customLogger.log(`Init, updating data...`);
     const request: ITodo | null = await this.todoModel.findByIdAndUpdate(id, {
       isDeleted: false,
     });
     request === null
       ? this.customLogger.error(`A task object with id "${id}" does not exist`)
-      : this.customLogger.log(`[${methodName}] Success`);
+      : this.customLogger.log(`Success`);
     return request;
   }
 
   async remove(id: mongoose.Types.ObjectId, sofDelete: boolean) {
-    const methodName = this.remove.name;
-    this.customLogger.log(`[${methodName}] Init, removing data...`);
+    this.customLogger.setMethodName(this.remove.name);
+    this.customLogger.log(`Init, removing data...`);
     if (sofDelete) {
       const request: ITodo | null = await this.todoModel.findByIdAndUpdate(
         id,
@@ -83,7 +83,7 @@ export class TodoRepository {
         ? this.customLogger.error(
             `A task object with id "${id}" does not exist`,
           )
-        : this.customLogger.log(`[${methodName}] Success`);
+        : this.customLogger.log(`Success`);
       return request;
     } else {
       const request: ITodo | null = await this.todoModel.findByIdAndDelete(id);
@@ -91,7 +91,7 @@ export class TodoRepository {
         ? this.customLogger.error(
             `A task object with id "${id}" does not exist`,
           )
-        : this.customLogger.log(`[${methodName}] Success`);
+        : this.customLogger.log(`Success`);
       return request;
     }
   }

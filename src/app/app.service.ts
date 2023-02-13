@@ -8,8 +8,8 @@ export class AppService {
     this.customLogger.setContext(AppService.name);
   }
   getData(): { message: string } {
-    const methodName = this.getData.name;
-    this.customLogger.log(`[${methodName}] Returning message`);
+    this.customLogger.setMethodName(this.getData.name);
+    this.customLogger.log(`Returning message`);
     return { message: 'Welcome to To-Do App API!' };
   }
 }

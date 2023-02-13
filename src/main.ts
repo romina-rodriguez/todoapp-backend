@@ -28,8 +28,10 @@ class Main {
 
   async bootstrap() {
     const app = await NestFactory.create(AppModule, {
+      bufferLogs: true,
       logger: this.env === 'prod' ? ['log', 'warn', 'error'] : ['debug'],
     });
+    app.useLogger(new CustomLogger());
     app.setGlobalPrefix(this.globalPrefix);
     app.useGlobalFilters(new MongooseExceptionFilter(new CustomLogger()));
     app.useGlobalPipes(
@@ -63,6 +65,7 @@ class Main {
     SwaggerModule.setup(`${this.globalPrefix}/docs`, app, document);
 
     await app.listen(this.port);
+    this.customLogger.setMethodName(this.bootstrap.name);
     this.customLogger.log(
       `🚀 Application is running on: http://localhost:${this.port}/${this.globalPrefix}`,
     );

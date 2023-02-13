@@ -30,8 +30,8 @@ export class AppController {
     type: Object,
   })
   getData() {
-    const methodName = this.getData.name;
-    this.customLogger.log(`[${methodName}] Init`);
+    this.customLogger.setContext(this.getData.name);
+    this.customLogger.log(`Init`);
     return this.appService.getData();
   }
 }
