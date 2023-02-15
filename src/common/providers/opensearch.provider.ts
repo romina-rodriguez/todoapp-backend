@@ -1,12 +1,16 @@
 import { Injectable } from '@nestjs/common';
+import { InternalServerErrorException } from '@nestjs/common/exceptions';
 import { ConfigService } from '@nestjs/config';
 import { Client } from '@opensearch-project/opensearch';
 
 @Injectable()
 export class OpenSearchService {
   private client: Client;
+  private index: string;
 
   constructor(private configService: ConfigService) {
+    const index =
+      this.configService.get<string>('OPENSEARCH_INDEX') || 'default';
     const protocol = this.configService.get<string>('OPENSEARCH_PROTOCOL');
     const host = this.configService.get<string>('OPENSEARCH_HOST');
     const port = this.configService.get<string>('OPENSEARCH_PORT');
@@ -20,11 +24,12 @@ export class OpenSearchService {
         rejectUnauthorized: false,
       },
     });
+    this.index = index;
   }
 
-  async saveObject(object: object): Promise<string | undefined> {
+  async saveObject(object: object): Promise<void> {
     try {
-      const date = new Date()
+      const date = new Date(object['timestamp'])
         .toLocaleString('es-CL', {
           year: 'numeric',
           month: 'numeric',
@@ -32,14 +37,16 @@ export class OpenSearchService {
         })
         .split('-')
         .join('.');
-      const dailyIndex = 'qa-cencodesk-log-' + date;
+      const dailyIndex = this.index + date;
       await this.client.index({
         index: dailyIndex,
         body: object,
         refresh: true,
       });
     } catch (error) {
-      return 'Error saving object in OpenSearch cluster';
+      throw new InternalServerErrorException(
+        'Error saving document to OpenSearch',
+      );
     }
   }
 }

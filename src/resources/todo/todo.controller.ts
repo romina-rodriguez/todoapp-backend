@@ -84,8 +84,9 @@ export class TodoController {
 
   @Get(':id')
   @ApiParam({
-    name: '_id',
+    name: 'id',
     description: 'Task ObjectId',
+    type: String,
   })
   @ApiOperation({
     summary: 'Returns one task by its id',
@@ -103,8 +104,9 @@ export class TodoController {
 
   @Patch(':id')
   @ApiParam({
-    name: '_id',
+    name: 'id',
     description: 'Task ObjectId',
+    type: String,
   })
   @ApiOperation({
     summary: 'Updates one task by its id',
@@ -129,8 +131,9 @@ export class TodoController {
 
   @Patch('retrieve/:id')
   @ApiParam({
-    name: '_id',
+    name: 'id',
     description: 'Task ObjectId',
+    type: String,
   })
   @ApiOperation({
     summary:
@@ -149,8 +152,9 @@ export class TodoController {
 
   @Delete(':softDelete?/:id')
   @ApiParam({
-    name: '_id',
+    name: 'id',
     description: 'Task ObjectId',
+    type: String,
   })
   @ApiOperation({
     summary:

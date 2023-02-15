@@ -12,6 +12,8 @@ class Main {
   private port: number;
   private env: string;
   private globalPrefix: string;
+  private host: string;
+  private protocol: string;
 
   constructor(
     private configService: ConfigService,
@@ -23,6 +25,8 @@ class Main {
     this.port = this.configService.get<number>('PORT') || 3015;
     this.env = this.configService.get<string>('ENV') || 'dev';
     this.globalPrefix = this.configService.get<string>('PREFIX') || 'api';
+    this.host = this.configService.get<string>('APP_HOST') || 'localhost';
+    this.protocol = this.configService.get<string>('APP_PROTOCOL') || 'http';
     this.customLogger.setContext(Main.name);
   }
 
@@ -69,7 +73,7 @@ class Main {
     await app.listen(this.port);
     this.customLogger.setMethodName(this.bootstrap.name);
     this.customLogger.log(
-      `🚀 Application is running on: http://localhost:${this.port}/${this.globalPrefix}`,
+      `🚀 Application is running on: ${this.protocol}://${this.host}:${this.port}/${this.globalPrefix}`,
     );
   }
 }

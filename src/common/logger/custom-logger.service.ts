@@ -27,14 +27,14 @@ export class CustomLogger extends ConsoleLogger {
     contextMessage: string,
     timestampDiff: string,
   ): string {
-    const timestamp = this.getTimestamp();
+    const timestamp = new Date(Date.now());
 
     const numberOnly = (value: string) => {
       return value.replace(/[^0-9]/g, '');
     };
     const JSONLoggerMessage = {
       pidMessage: numberOnly(pidMessage),
-      timestamp: timestamp,
+      timestamp: timestamp.toISOString(),
       logLevel,
       contextMessage,
       message,
@@ -42,20 +42,11 @@ export class CustomLogger extends ConsoleLogger {
     };
     this.openSearchService.saveObject(JSONLoggerMessage);
 
-    //let showError = false;
-    //const response = this.openSearchService.saveObject(JSONLoggerMessage);
-    /*
-    if (response instanceof Promise<string>) {
-      showError = true;
-    }
-    */
-
     const output = this.stringifyMessage(message, logLevel);
-    //const loggerMessage = `${showError ? response : ''}${this.colorize(
     const loggerMessage = `${this.colorize(
       pidMessage,
       logLevel,
-    )} ${timestamp} ${this.colorize(
+    )} ${timestamp.toISOString()} ${this.colorize(
       formattedLogLevel,
       logLevel,
     )} ${chalk.yellow(contextMessage)} ${output} ${timestampDiff}\n`;
