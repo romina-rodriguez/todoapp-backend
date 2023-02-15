@@ -3,6 +3,8 @@ import { InternalServerErrorException } from '@nestjs/common/exceptions';
 import { ConfigService } from '@nestjs/config';
 import { Client } from '@opensearch-project/opensearch';
 
+import { IJSONLoggerMessage } from './interfaces/json-logger-message.interface';
+
 @Injectable()
 export class OpenSearchService {
   private client: Client;
@@ -27,7 +29,7 @@ export class OpenSearchService {
     this.index = index;
   }
 
-  async saveObject(object: object): Promise<void> {
+  async saveObject(object: IJSONLoggerMessage): Promise<void> {
     try {
       const date = new Date(object['timestamp'])
         .toLocaleString('es-CL', {

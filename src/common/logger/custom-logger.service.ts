@@ -25,7 +25,6 @@ export class CustomLogger extends ConsoleLogger {
     pidMessage: string,
     formattedLogLevel: string,
     contextMessage: string,
-    timestampDiff: string,
   ): string {
     const timestamp = new Date(Date.now());
 
@@ -38,7 +37,6 @@ export class CustomLogger extends ConsoleLogger {
       logLevel,
       contextMessage,
       message,
-      timestampDiff,
     };
     this.openSearchService.saveObject(JSONLoggerMessage);
 
@@ -49,7 +47,7 @@ export class CustomLogger extends ConsoleLogger {
     )} ${timestamp.toISOString()} ${this.colorize(
       formattedLogLevel,
       logLevel,
-    )} ${chalk.yellow(contextMessage)} ${output} ${timestampDiff}\n`;
+    )} ${chalk.yellow(contextMessage)} ${output}\n`;
     return loggerMessage;
   }
 }
