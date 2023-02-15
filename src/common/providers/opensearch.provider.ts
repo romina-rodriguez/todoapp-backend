@@ -3,7 +3,7 @@ import { InternalServerErrorException } from '@nestjs/common/exceptions';
 import { ConfigService } from '@nestjs/config';
 import { Client } from '@opensearch-project/opensearch';
 
-import { IJSONLoggerMessage } from './interfaces/json-logger-message.interface';
+import { IJSONLoggerMessage } from '../interfaces/json-logger-message.interface';
 
 @Injectable()
 export class OpenSearchService {
