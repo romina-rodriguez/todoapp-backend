@@ -32,7 +32,7 @@ export class CustomLogger extends ConsoleLogger {
       return value.replace(/[^0-9]/g, '');
     };
     const JSONLoggerMessage = {
-      pidMessage: numberOnly(pidMessage),
+      pid: numberOnly(pidMessage),
       timestamp: timestamp.toISOString(),
       logLevel,
       contextMessage,

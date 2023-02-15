@@ -1,5 +1,5 @@
 export interface IJSONLoggerMessage {
-  pidMessage: string;
+  pid: string;
   timestamp: string;
   logLevel: string;
   contextMessage: string;
